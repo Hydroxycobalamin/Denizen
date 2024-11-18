@@ -45,9 +45,8 @@ public class PlayerQuitsScriptEvent extends BukkitScriptEvent implements Listene
         this.<PlayerQuitsScriptEvent>registerTextDetermination("none", (evt) -> {
             event.setQuitMessage(null);
         });
-        this.<PlayerQuitsScriptEvent, ElementTag>registerOptionalDetermination(null, ElementTag.class, (evt, context, determination) -> {
+        this.<PlayerQuitsScriptEvent, ElementTag>registerDetermination(null, ElementTag.class, (evt, context, determination) -> {
             event.setQuitMessage(determination.asString());
-            return true;
         });
     }
 
