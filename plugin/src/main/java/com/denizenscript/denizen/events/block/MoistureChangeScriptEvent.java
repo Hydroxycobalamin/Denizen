@@ -57,9 +57,6 @@ public class MoistureChangeScriptEvent extends BukkitScriptEvent implements List
         if (!runInCheck(path, location)) {
             return false;
         }
-        if (!path.tryArgObject(0, newMaterial)) {
-            return false;
-        }
         if (!path.checkSwitch("from", String.valueOf(oldFarmland.getMoisture()))) {
             return false;
         }
