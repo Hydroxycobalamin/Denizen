@@ -27,7 +27,8 @@ public class MoistureChangeScriptEvent extends BukkitScriptEvent implements List
     //
     // @Context
     // <context.location> returns the LocationTag of the farmland.
-    // <context.material> returns the MaterialTag of the new farmland.
+    // <context.old_material> returns the MaterialTag the old farmland block, before the level changed.
+    // <context.new_material> returns the MaterialTag the farmland block is changing to.
     // <context.old_level> returns the ElementTag(Number) of the previous moisture level.
     // <context.new_level> returns the ElementTag(Number) of the new moisture level.
     //
@@ -46,7 +47,7 @@ public class MoistureChangeScriptEvent extends BukkitScriptEvent implements List
     }
 
     public MoistureChangeEvent event;
-    public MaterialTag material;
+    public MaterialTag old_material;
     public LocationTag location;
     public Farmland oldFarmland;
     public Farmland newFarmland;
@@ -56,7 +57,7 @@ public class MoistureChangeScriptEvent extends BukkitScriptEvent implements List
         if (!runInCheck(path, location)) {
             return false;
         }
-        if (!path.tryArgObject(0, material)) {
+        if (!path.tryArgObject(0, old_material)) {
             return false;
         }
         if (!path.checkSwitch("from", String.valueOf(oldFarmland.getMoisture()))) {
@@ -72,7 +73,8 @@ public class MoistureChangeScriptEvent extends BukkitScriptEvent implements List
     public ObjectTag getContext(String name) {
         return switch (name) {
             case "location" -> location;
-            case "material" -> material;
+            case "old_material" -> old_material;
+            case "new_material" -> new MaterialTag(event.getBlock().getBlockData());
             case "old_level" -> new ElementTag(oldFarmland.getMoisture());
             case "new_level" -> new ElementTag(newFarmland.getMoisture());
             default -> super.getContext(name);
@@ -84,7 +86,7 @@ public class MoistureChangeScriptEvent extends BukkitScriptEvent implements List
         location = new LocationTag(event.getBlock().getLocation());
         oldFarmland = (Farmland) event.getBlock().getBlockData();
         newFarmland = (Farmland) event.getNewState().getBlockData();
-        material = new MaterialTag(newFarmland);
+        old_material = new MaterialTag(newFarmland);
         this.event = event;
         fire(event);
     }
