@@ -14,9 +14,8 @@ public class PlayerQuitsScriptEventPaperImpl extends PlayerQuitsScriptEvent {
         this.<PlayerQuitsScriptEventPaperImpl>registerTextDetermination("none", (evt) -> {
             event.quitMessage(null);
         });
-        this.<PlayerQuitsScriptEventPaperImpl, ElementTag>registerOptionalDetermination(null, ElementTag.class, (evt, context, determination) -> {
+        this.<PlayerQuitsScriptEventPaperImpl, ElementTag>registerDetermination(null, ElementTag.class, (evt, context, determination) -> {
             event.quitMessage(PaperModule.parseFormattedText(determination.toString(), ChatColor.WHITE));
-            return true;
         });
     }
 
