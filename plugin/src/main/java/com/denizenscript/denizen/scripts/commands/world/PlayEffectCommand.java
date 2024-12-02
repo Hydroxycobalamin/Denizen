@@ -85,12 +85,11 @@ public class PlayEffectCommand extends AbstractCommand {
     // - For REDSTONE particles, the input is of format: <size>|<color>, for example: "1.2|red". Color input is any valid ColorTag object.
     // - For DUST_COLOR_TRANSITION particles, the input is of format <size>|<from_color>|<to_color>, for example "1.2|red|blue". Color input is any valid ColorTag object.
     // - For BLOCK_MARKER, FALLING_DUST, BLOCK_CRACK, or BLOCK_DUST particles, the input is any valid MaterialTag, eg "stone".
-    // - For VIBRATION, the input is <duration>|<origin>|<destination> where origin is a LocationTag and destination is either LocationTag or EntityTag, for example "5s|<context.location>|<player>"
+    // - For VIBRATION particles, the input is <duration>|<origin>|<destination> where origin is a LocationTag and destination is either LocationTag or EntityTag, for example "5s|<context.location>|<player>"
     // - For ITEM_CRACK particles, the input is any valid ItemTag, eg "stick".
-    // - For TARGET_COLOR, the input is of format: <color>|<location>, for example "red|<player.cursor_on>". Color input is any valid ColorTag object.
-    // - For COLOR, the input is any valid ColorTag.
-    // - For FLOAT, the input is any valid ElementTag(Decimal).
-    // - For INTEGER, the input is any valid ElementTag(Integer).
+    // - For TRAIL particles, the input is of format: <color>|<location>, for example "red|<player.cursor_on>". Color input is any valid ColorTag object.
+    // - For ENTITY_EFFECT particles, the input is any valid ColorTag.
+    // - For SHRIEK and SCULK_CHARGE particles, the input is any valid number.
     //
     // Optionally specify a velocity vector for standard particles to move. Note that this ignores the 'data' input if used.
     //
