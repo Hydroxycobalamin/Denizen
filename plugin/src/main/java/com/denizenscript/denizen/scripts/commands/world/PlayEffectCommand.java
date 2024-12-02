@@ -18,6 +18,7 @@ import com.denizenscript.denizencore.scripts.ScriptEntry;
 import com.denizenscript.denizencore.scripts.commands.AbstractCommand;
 import com.denizenscript.denizencore.utilities.CoreUtilities;
 import com.denizenscript.denizencore.utilities.debugging.Debug;
+import org.bukkit.Color;
 import org.bukkit.Effect;
 import org.bukkit.Particle;
 import org.bukkit.Vibration;
@@ -86,6 +87,10 @@ public class PlayEffectCommand extends AbstractCommand {
     // - For BLOCK_MARKER, FALLING_DUST, BLOCK_CRACK, or BLOCK_DUST particles, the input is any valid MaterialTag, eg "stone".
     // - For VIBRATION, the input is <duration>|<origin>|<destination> where origin is a LocationTag and destination is either LocationTag or EntityTag, for example "5s|<context.location>|<player>"
     // - For ITEM_CRACK particles, the input is any valid ItemTag, eg "stick".
+    // - For TARGET_COLOR, the input is of format: <color>|<location>, for example "red|<player.cursor_on>". Color input is any valid ColorTag object.
+    // - For COLOR, the input is any valid ColorTag.
+    // - For FLOAT, the input is any valid ElementTag(Decimal).
+    // - For INTEGER, the input is any valid ElementTag(Integer).
     //
     // Optionally specify a velocity vector for standard particles to move. Note that this ignores the 'data' input if used.
     //
@@ -104,6 +109,24 @@ public class PlayEffectCommand extends AbstractCommand {
     // @Usage
     // Use to play some effects at spawn.
     // - playeffect effect:FIREWORKS_SPARK at:<world[world].spawn_location> visibility:100 quantity:375 data:0 offset:50.0
+    //
+    // @Usage
+    // Use to spawn a cloud of rainbow-colored ENTITY_EFFECT particles around yourself.
+    // - foreach <util.color_names> as:color:
+    //     - playeffect effect:ENTITY_EFFECT at:<player.eye_location> quantity:25 special_data:<[color]>
+    //
+    // @Usage
+    // Use to shoot a laser in to the direction you're looking at.
+    // - playeffect effect:TRAIL at:<player.eye_location> quantity:100 offset:0 special_data:RED|<player.eye_location.ray_trace[default=air]>
+    //
+    // @Usage
+    // Use to spawn a SCULK_CHARGE effect upside down.
+    // - playeffect effect:SCULK_CHARGE at:<player.eye_location.add[0,1,0]> quantity:1 offset:0 special_data:<element[180].to_radians>
+    //
+    // @Usage
+    // Use to play a SHRIEK effect with a 5-second delay.
+    // - playeffect effect:SHRIEK at:<player.eye_location.add[0,1,0]> quantity:1 special_data:100
+    //
     // -->
 
     @Override
@@ -344,6 +367,27 @@ public class PlayEffectCommand extends AbstractCommand {
                             }
                             dataObject = new Vibration(origin, destObj, duration.getTicksAsInt());
                         }
+                    }
+                    else if (clazz == Particle.TargetColor.class) {
+                        ListTag dataList = ListTag.valueOf(special_data.asString(), scriptEntry.getContext());
+                        if (dataList.size() != 2) {
+                            Debug.echoError("TargetColor special_data must have 2 list entries for particle: " + particleEffect.name());
+                            return;
+                        } else {
+                            ColorTag color = dataList.getObject(0).asType(ColorTag.class, scriptEntry.context);
+                            LocationTag target = dataList.getObject(1).asType(LocationTag.class, scriptEntry.context);
+                            dataObject = new Particle.TargetColor(target, BukkitColorExtensions.getColor(color));
+                        }
+                    }
+                    else if (clazz == Color.class) {
+                        ColorTag color = ColorTag.valueOf(special_data.asString(), scriptEntry.context);
+                        dataObject = BukkitColorExtensions.getColor(color);
+                    }
+                    else if (clazz == Integer.class) {
+                        dataObject = special_data.asInt();
+                    }
+                    else if (clazz == Float.class) {
+                        dataObject = special_data.asFloat();
                     }
                     else {
                         Debug.echoError("Unknown particle data type: " + clazz.getCanonicalName() + " for particle: " + particleEffect.name());
