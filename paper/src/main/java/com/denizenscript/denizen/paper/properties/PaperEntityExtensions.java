@@ -5,8 +5,11 @@ import com.denizenscript.denizen.nms.NMSVersion;
 import com.denizenscript.denizen.objects.EntityFormObject;
 import com.denizenscript.denizen.objects.EntityTag;
 import com.denizenscript.denizen.objects.LocationTag;
+import com.denizenscript.denizen.utilities.Utilities;
 import com.denizenscript.denizencore.objects.core.ElementTag;
 import com.denizenscript.denizencore.objects.core.MapTag;
+import io.papermc.paper.entity.Shearable;
+import net.kyori.adventure.sound.Sound;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ExperienceOrb;
@@ -183,6 +186,36 @@ public class PaperEntityExtensions {
                     return;
                 }
                 object.getLivingEntity().damageItemStack(slot.asEnum(EquipmentSlot.class), amount.asInt());
+            });
+        }
+
+        if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_19)) {
+            // <--[mechanism]
+            // @object EntityTag
+            // @name shear
+            // @Plugin paper
+            // @group paper
+            // @description
+            // Shears a sheep, harvests a bogged or mushroom cow or derps a snow golem as a player would do, including drops.
+            // If the entity is not ready to be shared, there are no drops but the sound will still play.
+            // Optionally, specify a sound source to change the source of the sound.
+            // Valid types are AMBIENT, BLOCKS, HOSTILE, MASTER, MUSIC, NEUTRAL, PLAYERS, RECORDS, VOICE and WEATHER
+            //
+            // @example
+            // # Shears the entity you're looking at.
+            // # - adjust <player.target> shear:
+            //
+            // -->
+            EntityTag.registerSpawnedOnlyMechanism("shear", false, ElementTag.class, (object, mechanism, input) -> {
+                if (object.getBukkitEntity() instanceof Shearable shearable) {
+                    if (input.matchesEnum(Sound.Source.class)) {
+                        Sound.Source source = input.asEnum(Sound.Source.class);
+                        shearable.shear(source);
+                    }
+                    else {
+                        shearable.shear();
+                    }
+                }
             });
         }
     }

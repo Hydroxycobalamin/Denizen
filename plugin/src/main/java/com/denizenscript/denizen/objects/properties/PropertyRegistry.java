@@ -155,6 +155,7 @@ public class PropertyRegistry {
             PropertyParser.registerProperty(EntityShadowRadius.class, EntityTag.class);
             PropertyParser.registerProperty(EntityShadowStrength.class, EntityTag.class);
         }
+        PropertyParser.registerProperty(EntitySheared.class, EntityTag.class);
         PropertyParser.registerProperty(EntityShivering.class, EntityTag.class);
         PropertyParser.registerProperty(EntityShotAtAngle.class, EntityTag.class);
         PropertyParser.registerProperty(EntityShulkerPeek.class, EntityTag.class);
