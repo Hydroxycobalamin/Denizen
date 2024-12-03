@@ -8,6 +8,7 @@ import com.denizenscript.denizen.objects.LocationTag;
 import com.denizenscript.denizen.utilities.Utilities;
 import com.denizenscript.denizencore.objects.core.ElementTag;
 import com.denizenscript.denizencore.objects.core.MapTag;
+import com.denizenscript.denizencore.utilities.debugging.Debug;
 import io.papermc.paper.entity.Shearable;
 import net.kyori.adventure.sound.Sound;
 import org.bukkit.Location;
@@ -203,14 +204,20 @@ public class PaperEntityExtensions {
             //
             // @example
             // # Shears the entity you're looking at.
-            // # - adjust <player.target> shear:
+            // # - adjust <player.target> shear
             //
             // -->
-            EntityTag.registerSpawnedOnlyMechanism("shear", false, ElementTag.class, (object, mechanism, input) -> {
+            EntityTag.registerSpawnedOnlyMechanism("shear", false, (object, mechanism) -> {
                 if (object.getBukkitEntity() instanceof Shearable shearable) {
-                    if (input.matchesEnum(Sound.Source.class)) {
-                        Sound.Source source = input.asEnum(Sound.Source.class);
-                        shearable.shear(source);
+                    if (mechanism.hasValue()) {
+                        ElementTag input = mechanism.getValue();
+                        if (input.matchesEnum(Sound.Source.class)) {
+                            Sound.Source source = input.asEnum(Sound.Source.class);
+                            shearable.shear(source);
+                        }
+                        else {
+                            mechanism.echoError("Invalid sound source specified: " + input);
+                        }
                     }
                     else {
                         shearable.shear();

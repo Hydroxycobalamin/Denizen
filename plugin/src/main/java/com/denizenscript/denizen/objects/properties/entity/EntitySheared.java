@@ -16,14 +16,14 @@ public class EntitySheared extends EntityProperty<ElementTag> {
     // @name sheared
     // @input ElementTag(Boolean)
     // @description
-    // Controls whether a sheep is sheared, a bogged is harvested or a snow golem is derped, eg not wearing a pumpkin.
+    // Controls whether a sheep is sheared, a bogged is harvested or a snow golem is derped, ie not wearing a pumpkin.
     // To include drops or harvesting mushroom cows consider <@link mechanism EntityTag.shear>.
     // -->
 
     public static boolean describes(EntityTag entity) {
-        return (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && entity.getBukkitEntity() instanceof Shearable
-                || entity.getBukkitEntity() instanceof Sheep
-                || entity.getBukkitEntity() instanceof Snowman);
+        return (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && entity.getBukkitEntity() instanceof Shearable)
+                || entity.getBukkitEntity() instanceof Snowman
+                || entity.getBukkitEntity() instanceof Sheep;
     }
 
     @Override
@@ -39,19 +39,23 @@ public class EntitySheared extends EntityProperty<ElementTag> {
     }
 
     public boolean isSheared() {
-        if (getEntity() instanceof Shearable shearable) {
+        if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && getEntity() instanceof Shearable shearable) {
             return shearable.isSheared();
         } else if (getEntity() instanceof Snowman snowman) {
             return snowman.isDerp();
+        } else if (getEntity() instanceof Sheep sheep) {
+            return sheep.isSheared();
         }
         return false;
     }
 
     public void setSheared(boolean sheared) {
-        if (getEntity() instanceof Shearable shearable) {
+        if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && getEntity() instanceof Shearable shearable) {
             shearable.setSheared(sheared);
         } else if (getEntity() instanceof Snowman snowman) {
             snowman.setDerp(sheared);
+        } else if (getEntity() instanceof Sheep sheep) {
+            sheep.setSheared(sheared);
         }
     }
 
