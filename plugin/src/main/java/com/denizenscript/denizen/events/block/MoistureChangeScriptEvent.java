@@ -26,9 +26,8 @@ public class MoistureChangeScriptEvent extends BukkitScriptEvent implements List
     // @Switch to:<level> to only process the event when the new moisture level matches the input.
     //
     // @Context
-    // <context.location> returns the LocationTag of the farmland.
-    // <context.old_material> returns the MaterialTag the old farmland block, before the level changed.
-    // <context.new_material> returns the MaterialTag the farmland block is changing to.
+    // <context.location> returns the LocationTag of the farmland block.
+    // <context.material> returns the MaterialTag of the farmland block that changed the moisture level.
     // <context.old_level> returns the ElementTag(Number) of the previous moisture level.
     // <context.new_level> returns the ElementTag(Number) of the new moisture level.
     //
@@ -47,7 +46,6 @@ public class MoistureChangeScriptEvent extends BukkitScriptEvent implements List
     }
 
     public MoistureChangeEvent event;
-    public MaterialTag newMaterial;
     public LocationTag location;
     public Farmland oldFarmland;
     public Farmland newFarmland;
@@ -70,8 +68,7 @@ public class MoistureChangeScriptEvent extends BukkitScriptEvent implements List
     public ObjectTag getContext(String name) {
         return switch (name) {
             case "location" -> location;
-            case "old_material" -> new MaterialTag(event.getBlock().getBlockData());
-            case "new_material" -> newMaterial;
+            case "material" -> new MaterialTag(event.getBlock().getBlockData());
             case "old_level" -> new ElementTag(oldFarmland.getMoisture());
             case "new_level" -> new ElementTag(newFarmland.getMoisture());
             default -> super.getContext(name);
@@ -83,7 +80,6 @@ public class MoistureChangeScriptEvent extends BukkitScriptEvent implements List
         location = new LocationTag(event.getBlock().getLocation());
         oldFarmland = (Farmland) event.getBlock().getBlockData();
         newFarmland = (Farmland) event.getNewState().getBlockData();
-        newMaterial = new MaterialTag(newFarmland);
         this.event = event;
         fire(event);
     }
