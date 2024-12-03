@@ -372,7 +372,8 @@ public class PlayEffectCommand extends AbstractCommand {
                         if (dataList.size() != 2) {
                             Debug.echoError("TargetColor special_data must have 2 list entries for particle: " + particleEffect.name());
                             return;
-                        } else {
+                        }
+                        else {
                             ColorTag color = dataList.getObject(0).asType(ColorTag.class, scriptEntry.context);
                             LocationTag target = dataList.getObject(1).asType(LocationTag.class, scriptEntry.context);
                             dataObject = new Particle.TargetColor(target, BukkitColorExtensions.getColor(color));
