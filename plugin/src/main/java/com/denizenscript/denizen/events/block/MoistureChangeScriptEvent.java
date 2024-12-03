@@ -68,7 +68,7 @@ public class MoistureChangeScriptEvent extends BukkitScriptEvent implements List
     public ObjectTag getContext(String name) {
         return switch (name) {
             case "location" -> location;
-            case "material" -> new MaterialTag(event.getBlock().getBlockData());
+            case "material" -> new MaterialTag(oldFarmland);
             case "old_level" -> new ElementTag(oldFarmland.getMoisture());
             case "new_level" -> new ElementTag(newFarmland.getMoisture());
             default -> super.getContext(name);
