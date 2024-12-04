@@ -21,9 +21,9 @@ public class EntitySheared extends EntityProperty<ElementTag> {
     // -->
 
     public static boolean describes(EntityTag entity) {
-        return (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && entity.getBukkitEntity() instanceof Shearable)
+        return entity.getBukkitEntity() instanceof Sheep
                 || entity.getBukkitEntity() instanceof Snowman
-                || entity.getBukkitEntity() instanceof Sheep;
+                || (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && entity.getBukkitEntity() instanceof Shearable);
     }
 
     @Override
@@ -39,23 +39,27 @@ public class EntitySheared extends EntityProperty<ElementTag> {
     }
 
     public boolean isSheared() {
-        if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && getEntity() instanceof Shearable shearable) {
-            return shearable.isSheared();
-        } else if (getEntity() instanceof Snowman snowman) {
-            return snowman.isDerp();
-        } else if (getEntity() instanceof Sheep sheep) {
+        if (getEntity() instanceof Sheep sheep) {
             return sheep.isSheared();
+        }
+        else if (getEntity() instanceof Snowman snowman) {
+            return snowman.isDerp();
+        }
+        else if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && getEntity() instanceof Shearable shearable) {
+            return shearable.isSheared();
         }
         return false;
     }
 
     public void setSheared(boolean sheared) {
-        if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && getEntity() instanceof Shearable shearable) {
-            shearable.setSheared(sheared);
-        } else if (getEntity() instanceof Snowman snowman) {
-            snowman.setDerp(sheared);
-        } else if (getEntity() instanceof Sheep sheep) {
+        if (getEntity() instanceof Sheep sheep) {
             sheep.setSheared(sheared);
+        }
+        else if (getEntity() instanceof Snowman snowman) {
+            snowman.setDerp(sheared);
+        }
+        else if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && getEntity() instanceof Shearable shearable) {
+            shearable.setSheared(sheared);
         }
     }
 

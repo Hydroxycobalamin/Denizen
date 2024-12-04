@@ -5,10 +5,8 @@ import com.denizenscript.denizen.nms.NMSVersion;
 import com.denizenscript.denizen.objects.EntityFormObject;
 import com.denizenscript.denizen.objects.EntityTag;
 import com.denizenscript.denizen.objects.LocationTag;
-import com.denizenscript.denizen.utilities.Utilities;
 import com.denizenscript.denizencore.objects.core.ElementTag;
 import com.denizenscript.denizencore.objects.core.MapTag;
-import com.denizenscript.denizencore.utilities.debugging.Debug;
 import io.papermc.paper.entity.Shearable;
 import net.kyori.adventure.sound.Sound;
 import org.bukkit.Location;
@@ -188,9 +186,7 @@ public class PaperEntityExtensions {
                 }
                 object.getLivingEntity().damageItemStack(slot.asEnum(EquipmentSlot.class), amount.asInt());
             });
-        }
 
-        if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_19)) {
             // <--[mechanism]
             // @object EntityTag
             // @name shear
