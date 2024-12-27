@@ -24,7 +24,7 @@ public class EntitySheared extends EntityProperty<ElementTag> {
     public static boolean describes(EntityTag entity) {
         return entity.getBukkitEntity() instanceof Sheep
                 || entity.getBukkitEntity() instanceof Snowman
-                || (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && entity.getBukkitEntity() instanceof Shearable);
+                || (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && entity.getBukkitEntity() instanceof Bogged);
     }
 
     @Override
