@@ -92,7 +92,7 @@ public class EntitySheared extends EntityProperty<ElementTag> {
             if (!(prop.getEntity() instanceof Snowman)) {
                 return null;
             }
-            return prop.getPropertyValue();
+            return new ElementTag(!prop.getPropertyValue().asBoolean());
         });
 
         // <--[mechanism]
@@ -109,7 +109,7 @@ public class EntitySheared extends EntityProperty<ElementTag> {
             if (!(prop.getEntity() instanceof Snowman)) {
                 return;
             }
-            prop.setPropertyValue(input, mechanism);
+            prop.setPropertyValue(new ElementTag(!input.asBoolean()), mechanism);
         });
     }
 }

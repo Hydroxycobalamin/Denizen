@@ -208,7 +208,7 @@ public class PaperEntityExtensions {
                 if (!(object.getBukkitEntity() instanceof Shearable shearable)) {
                     return;
                 }
-                if (!mechanism.requireBoolean()) {
+                if (!mechanism.hasValue()) {
                     shearable.shear();
                     return;
                 }
