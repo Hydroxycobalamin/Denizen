@@ -313,8 +313,6 @@ public class BukkitImplDeprecations {
     // Added 2024/07/13
     public static Warning pre1_21AttributeFormat = new VerySlowWarning("pre1_21AttributeFormat", "Attribute modifiers were changed in 1.21, now using slot groups instead of slots and namespaced keys instead of UUIDS; check relevant meta docs for more information.");
 
-    // Added 2024/12/03
-    public static Warning entityIsSheared = new VerySlowWarning("entityIsSheared", "'EntityTag.is_sheared' property is deprecated in favor of 'EntityTag.sheared'.");
     // ==================== FUTURE deprecations ====================
 
     // Added 2023/01/15, deprecate officially by 2026
@@ -345,6 +343,9 @@ public class BukkitImplDeprecations {
     // Added 2024/10/12
     // Good candidate for bumping, as this is a niche feature only on 1.19+ that already had some issues
     public static Warning entityStepHeight = new FutureWarning("entityStepHeight", "'EntityTag.step_height' is deprecated in favor of the step height attribute.");
+
+    // Added 2024/12/27
+    public static Warning entityIsSheared = new FutureWarning("entityIsSheared", "'EntityTag.is_sheared' and 'EntityTag.has_pumpkin_head' properties are deprecated in favor of 'EntityTag.sheared'.");
 
     // ==================== PAST deprecations of things that are already gone but still have a warning left behind ====================
 
