@@ -194,9 +194,10 @@ public class PaperEntityExtensions {
             // @group paper
             // @description
             // Shears a sheep, harvests a bogged or mushroom cow or derps a snow golem as a player would do, including drops.
-            // If the entity is not ready to be shared, there are no drops but the sound will still play.
+            // If the entity is not ready to be sheared, there will be no drops but the sound will still play.
             // Optionally, specify a sound source to change the source of the sound.
-            // Valid types are AMBIENT, BLOCKS, HOSTILE, MASTER, MUSIC, NEUTRAL, PLAYERS, RECORDS, VOICE and WEATHER
+            // Valid sound sources can be found here: <@link url https://jd.advntr.dev/api/latest/net/kyori/adventure/sound/Sound.Source.html>.
+            // Note: Mushroom cows will be replaced by entirely new 'cow' entities.
             //
             // @example
             // # Shears the entity you're looking at.
@@ -204,21 +205,20 @@ public class PaperEntityExtensions {
             //
             // -->
             EntityTag.registerSpawnedOnlyMechanism("shear", false, (object, mechanism) -> {
-                if (object.getBukkitEntity() instanceof Shearable shearable) {
-                    if (mechanism.hasValue()) {
-                        ElementTag input = mechanism.getValue();
-                        if (input.matchesEnum(Sound.Source.class)) {
-                            Sound.Source source = input.asEnum(Sound.Source.class);
-                            shearable.shear(source);
-                        }
-                        else {
-                            mechanism.echoError("Invalid sound source specified: " + input);
-                        }
-                    }
-                    else {
-                        shearable.shear();
-                    }
+                if (!(object.getBukkitEntity() instanceof Shearable shearable)) {
+                    return;
                 }
+                if (!mechanism.requireBoolean()) {
+                    shearable.shear();
+                    return;
+                }
+                ElementTag input = mechanism.getValue();
+                if (!mechanism.requireEnum(Sound.Source.class)) {
+                    mechanism.echoError("Invalid sound source specified: " + input);
+                    return;
+                }
+                Sound.Source source = input.asEnum(Sound.Source.class);
+                shearable.shear(source);
             });
         }
     }
