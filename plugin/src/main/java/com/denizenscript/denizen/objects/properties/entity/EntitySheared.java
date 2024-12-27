@@ -3,13 +3,11 @@ package com.denizenscript.denizen.objects.properties.entity;
 import com.denizenscript.denizen.nms.NMSHandler;
 import com.denizenscript.denizen.nms.NMSVersion;
 import com.denizenscript.denizen.objects.EntityTag;
-import com.denizenscript.denizen.objects.properties.item.ItemBook;
 import com.denizenscript.denizen.utilities.BukkitImplDeprecations;
 import com.denizenscript.denizencore.objects.Mechanism;
 import com.denizenscript.denizencore.objects.core.ElementTag;
 import com.denizenscript.denizencore.objects.properties.PropertyParser;
 import org.bukkit.entity.*;
-import org.bukkit.inventory.meta.BookMeta;
 
 public class EntitySheared extends EntityProperty<ElementTag> {
 
