@@ -89,6 +89,9 @@ public class EntitySheared extends EntityProperty<ElementTag> {
         // -->
         PropertyParser.registerTag(EntitySheared.class, ElementTag.class, "has_pumpkin_head", (attribute, prop) -> {
             BukkitImplDeprecations.entityIsSheared.warn(attribute.context);
+            if (!(prop.getEntity() instanceof Snowman)) {
+                return null;
+            }
             return prop.getPropertyValue();
         });
 
@@ -103,6 +106,9 @@ public class EntitySheared extends EntityProperty<ElementTag> {
         // -->
         PropertyParser.registerMechanism(EntitySheared.class, ElementTag.class, "has_pumpkin_head", (prop, mechanism, input) -> {
             BukkitImplDeprecations.entityIsSheared.warn(mechanism.context);
+            if (!(prop.getEntity() instanceof Snowman)) {
+                return;
+            }
             prop.setPropertyValue(input, mechanism);
         });
     }
