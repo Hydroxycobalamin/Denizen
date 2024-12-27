@@ -193,11 +193,17 @@ public class PaperEntityExtensions {
             // @Plugin paper
             // @group paper
             // @description
-            // Shears a sheep, harvests a bogged or mushroom cow or derps a snow golem as a player would do, including drops.
+            // Shears entities in the same way as a player can do using shears, including drops.
             // If the entity is not ready to be sheared, there will be no drops but the sound will still play.
+            //
+            // This mech will:
+            // - Shear a sheep
+            // - harvest a bogged
+            // - harvest a mushroom cow (note: entity data will be lost as Minecraft will remove the entity and spawn an entirely new cow instead)
+            // - derp a snowman (i.e. remove the pumpkin)
+            //
             // Optionally, specify a sound source to change the source of the sound.
             // Valid sound sources can be found here: <@link url https://jd.advntr.dev/api/latest/net/kyori/adventure/sound/Sound.Source.html>.
-            // Note: Mushroom cows will be replaced by entirely new 'cow' entities.
             //
             // @example
             // # Shears the entity you're looking at.

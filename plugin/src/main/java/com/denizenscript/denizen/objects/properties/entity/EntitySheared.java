@@ -17,7 +17,7 @@ public class EntitySheared extends EntityProperty<ElementTag> {
     // @synonyms has_pumpkin_head
     // @input ElementTag(Boolean)
     // @description
-    // Controls whether a sheep is sheared, a bogged is harvested, or a snow golem is derped(ie not wearing a pumpkin).
+    // Controls whether a sheep is sheared, a bogged is harvested, or a snow golem is derped (ie not wearing a pumpkin).
     // To include drops or for harvesting mushroom cows consider <@link mechanism EntityTag.shear>.
     // -->
 
@@ -84,6 +84,7 @@ public class EntitySheared extends EntityProperty<ElementTag> {
         // @returns ElementTag(Boolean)
         // @mechanism EntityTag.has_pumpkin_head
         // @group properties
+        // @deprecated use 'EntityTag.sheared'
         // @description
         // Deprecated in favor of <@link tag EntityTag.sheared>.
         // -->
@@ -100,6 +101,7 @@ public class EntitySheared extends EntityProperty<ElementTag> {
         // @name has_pumpkin_head
         // @input ElementTag(Boolean)
         // @description
+        // @deprecated use 'EntityTag.sheared'
         // Deprecated in favor of <@link mechanism EntityTag.sheared>.
         // @tags
         // <EntityTag.has_pumpkin_head>
