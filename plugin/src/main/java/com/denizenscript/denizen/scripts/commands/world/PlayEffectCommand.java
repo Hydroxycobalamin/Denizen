@@ -314,7 +314,7 @@ public class PlayEffectCommand extends AbstractCommand {
                     MapTag dataMap = MapTag.valueOf(special_data.asString(), scriptEntry.getContext());
                     if (dataMap == null) {
                         ListTag dataList = ListTag.valueOf(special_data.asString(), scriptEntry.getContext());
-                        BukkitImplDeprecations.playEffectListInput.warn(scriptEntry.getContext());
+                        BukkitImplDeprecations.playEffectSpecialDataListInput.warn(scriptEntry.getContext());
                         if (clazz == Particle.DustOptions.class) {
                             if (dataList.size() != 2) {
                                 Debug.echoError("DustOptions special_data must have 2 list entries for particle: " + particleEffect.name());
