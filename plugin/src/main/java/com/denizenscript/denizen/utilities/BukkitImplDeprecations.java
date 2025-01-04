@@ -344,6 +344,8 @@ public class BukkitImplDeprecations {
     // Bad candidate for bumping, targets extremely commonly used naming, some of which may be hard to remove (eg stored in flag data).
     public static Warning oldSpigotNames = new FutureWarning("oldSpigotNames", "Several features (particles, entities, etc.) had alternative naming added by Spigot, which are now deprecated in favor of the official Minecraft naming; see relevant feature's meta docs for more information.");
 
+    // Added 2025/01/04
+    public static Warning playEffectListInput = new FutureWarning("playEffectListInput", "List input in playeffect command is now deprecated. Please use a MapTag instead.");
     // ==================== PAST deprecations of things that are already gone but still have a warning left behind ====================
 
     // Removed upstream 2023/10/29 without warning.
