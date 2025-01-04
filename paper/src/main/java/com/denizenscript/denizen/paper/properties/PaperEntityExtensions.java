@@ -207,7 +207,7 @@ public class PaperEntityExtensions {
             //
             // @example
             // # Shears the entity you're looking at.
-            // # - adjust <player.target> shear
+            // - adjust <player.target> shear
             //
             // -->
             EntityTag.registerSpawnedOnlyMechanism("shear", false, (object, mechanism) -> {
