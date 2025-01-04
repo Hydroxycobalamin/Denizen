@@ -76,15 +76,15 @@ public class PlayEffectCommand extends AbstractCommand {
     // If you do not have this prefix, the system will assume your command is older, and will apply the 1-block height offset.
     //
     // Some particles will require input to the "special_data" argument. The data input is a MapTag with different keys per particle.
-    // - For REDSTONE particles, the input is of format [size=<size>;color=<color>], e.g. "[size=1.2;color=red]".
+    // - For DUST particles, the input is of format [size=<size>;color=<color>], e.g. "[size=1.2;color=red]".
     // - For DUST_COLOR_TRANSITION particles, the input is of format [size=<size>;from=<color>;to=<color>], e.g "[size=1.2;from=red;to=blue]".
-    // - For BLOCK_MARKER, FALLING_DUST, BLOCK_CRACK, or BLOCK_DUST particles, the input is of format [material=<material>], eg [material=stone]
+    // - For BLOCK, BLOCK_CRUMBLE, BLOCK_MARKER, DUST_PILLAR, or FALLING_DUST particles, the input is of format [material=<material>], e.g. [material=stone]
     // - For VIBRATION particles, the input is of format [origin=<location>;destination=<location/entity>;duration=<duration>], for example: [origin=<player.location>;destination=<player.cursor_on>;duration=5s]
-    // - For ITEM_CRACK particles, the input is of format [item=<item>], eg "[item=stick]".
-    // - For TRAIL particles, the input is of format [color=<color>;target=<location>;duration=<duration>], eg "[color=red;target=<player.cursor_on>;duration=20s]".
-    // - For ENTITY_EFFECT particles, the input is of format [color=<color>], eg "[color=green]".
-    // - For SHRIEK particles, the input is of format [duration=<duration>], eg "[duration=1m]".
-    // - For SCULK_CHARGE particles, the input is of format [radians=<element>], eg "[radians=<element[90].to_radians>]".
+    // - For ITEM particles, the input is of format [item=<item>], e.g. "[item=stick]".
+    // - For TRAIL particles, the input is of format [color=<color>;target=<location>;duration=<duration>], e.g. "[color=red;target=<player.cursor_on>;duration=20s]".
+    // - For ENTITY_EFFECT particles, the input is of format [color=<color>], e.g. "[color=green]".
+    // - For SHRIEK particles, the input is of format [duration=<duration>], e.g. "[duration=1m]".
+    // - For SCULK_CHARGE particles, the input is of format [radians=<element>], e.g. "[radians=<element[90].to_radians>]".
     //
     // Optionally specify a velocity vector for standard particles to move. Note that this ignores the 'data' input if used.
     //
@@ -112,7 +112,7 @@ public class PlayEffectCommand extends AbstractCommand {
     // @Usage
     // Use to shoot particles in to the direction you're looking at.
     // - repeat 10:
-    //     - playeffect effect:TRAIL at:<player.eye_location> quantity:1 offset:0 special_data:[color=RED;target=<player.eye_location.ray_trace[default=air]>;duration=5s]
+    //     - playeffect effect:TRAIL at:<player.eye_location> quantity:1 offset:0 special_data:[color=red;target=<player.eye_location.ray_trace[default=air]>;duration=5s]
     //     - wait 1t
     //
     // @Usage
@@ -314,6 +314,7 @@ public class PlayEffectCommand extends AbstractCommand {
                     MapTag dataMap = MapTag.valueOf(special_data.asString(), scriptEntry.getContext());
                     if (dataMap == null) {
                         ListTag dataList = ListTag.valueOf(special_data.asString(), scriptEntry.getContext());
+                        BukkitImplDeprecations.playEffectListInput.warn(scriptEntry.getContext());
                         if (clazz == Particle.DustOptions.class) {
                             if (dataList.size() != 2) {
                                 Debug.echoError("DustOptions special_data must have 2 list entries for particle: " + particleEffect.name());
