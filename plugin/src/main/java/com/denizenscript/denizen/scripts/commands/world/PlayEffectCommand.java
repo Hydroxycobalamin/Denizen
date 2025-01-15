@@ -372,12 +372,12 @@ public class PlayEffectCommand extends AbstractCommand {
                         if (clazz == Particle.DustOptions.class) {
                             ElementTag size = dataMap.getObjectAs("size", ElementTag.class, scriptEntry.context);
                             if (size == null || !size.isFloat()) {
-                                Debug.echoError("special_data input must have a 'size' key with a valid number.");
+                                Debug.echoError("special_data input must have a 'size' key with a valid number, for particle " + particleEffect.name());
                                 return;
                             }
                             ColorTag color = dataMap.getObjectAs("color", ColorTag.class, scriptEntry.context);
                             if (color == null) {
-                                Debug.echoError("special_data input must have a 'color' key with a valid ColorTag");
+                                Debug.echoError("special_data input must have a 'color' key with a valid ColorTag, for particle: " + particleEffect.name());
                                 return;
                             }
                             dataObject = new Particle.DustOptions(BukkitColorExtensions.getColor(color), size.asFloat());
@@ -401,13 +401,13 @@ public class PlayEffectCommand extends AbstractCommand {
                         else if (clazz == Particle.DustTransition.class) {
                             ElementTag size = dataMap.getObjectAs("size", ElementTag.class, scriptEntry.context);
                             if (size == null || !size.isFloat()) {
-                                Debug.echoError("special_data input must have a 'size' key with a valid number.");
+                                Debug.echoError("special_data input must have a 'size' key with a valid number, for particle: " + particleEffect.name());
                                 return;
                             }
                             ColorTag fromColor = dataMap.getObjectAs("from", ColorTag.class, scriptEntry.context);
                             ColorTag toColor = dataMap.getObjectAs("to", ColorTag.class, scriptEntry.context);
                             if (fromColor == null || toColor == null) {
-                                Debug.echoError("special_data input must have a 'to' and 'size' key with a valid ColorTag.");
+                                Debug.echoError("special_data input must have a 'to' and 'size' key with a valid ColorTag, for particle: " + particleEffect.name());
                                 return;
                             }
                             dataObject = new Particle.DustTransition(BukkitColorExtensions.getColor(fromColor), BukkitColorExtensions.getColor(toColor), size.asFloat());
@@ -473,7 +473,7 @@ public class PlayEffectCommand extends AbstractCommand {
                         }
                         else if (clazz == Float.class) {
                             ElementTag radians = dataMap.getObjectAs("radians", ElementTag.class, scriptEntry.context);
-                            if (radians == null) {
+                            if (radians == null || !radians.isFloat()) {
                                 Debug.echoError("special_data input must have a 'radians' key with a valid number, for particle: " + particleEffect.name());
                                 return;
                             }
