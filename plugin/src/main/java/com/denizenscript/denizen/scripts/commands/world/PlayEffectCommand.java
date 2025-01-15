@@ -35,7 +35,7 @@ public class PlayEffectCommand extends AbstractCommand {
 
     public PlayEffectCommand() {
         setName("playeffect");
-        setSyntax("playeffect [effect:<name>] [at:<location>|...] (data:<#.#>) (special_data:<data>) (visibility:<#.#>) (quantity:<#>) (offset:<#.#>,<#.#>,<#.#>) (targets:<player>|...) (velocity:<vector>)");
+        setSyntax("playeffect [effect:<name>] [at:<location>|...] (data:<#.#>) (special_data:<map>) (visibility:<#.#>) (quantity:<#>) (offset:<#.#>,<#.#>,<#.#>) (targets:<player>|...) (velocity:<vector>)");
         setRequiredArguments(2, 8);
         isProcedural = false;
     }
@@ -54,7 +54,7 @@ public class PlayEffectCommand extends AbstractCommand {
 
     // <--[command]
     // @Name PlayEffect
-    // @Syntax playeffect [effect:<name>] [at:<location>|...] (data:<#.#>) (special_data:<data>) (visibility:<#.#>) (quantity:<#>) (offset:<#.#>,<#.#>,<#.#>) (targets:<player>|...) (velocity:<vector>)
+    // @Syntax playeffect [effect:<name>] [at:<location>|...] (data:<#.#>) (special_data:<map>) (visibility:<#.#>) (quantity:<#>) (offset:<#.#>,<#.#>,<#.#>) (targets:<player>|...) (velocity:<vector>)
     // @Required 2
     // @Maximum 8
     // @Short Plays a visible or audible effect at the location.
